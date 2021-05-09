@@ -1,0 +1,1 @@
+export * from './lib/prp-library.module';
