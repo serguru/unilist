@@ -1,2 +1,9 @@
-<h3>APP</h3>
-<button (click)="read()">Read</button>
+<h3>Companies</h3>
+<input type="text" [(ngModel)]="newCompany" class="add" #ctrl="ngModel" (keyup.enter)="add()">
+<button (click)="add()">Add</button>
+<button (click)="remove()" [disabled]="!selected">Remove</button>
+<div class="error" (click)="hideError()">{{errorMessage}}</div>
+<div class="list-wrapper">
+    <div *ngFor='let company of companies' (click)="select(company)" class="member" [ngClass]="getClass(company)">
+        {{company}}</div>
+</div>

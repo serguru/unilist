@@ -1,0 +1,10 @@
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 2em;
+  }
+
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+  }

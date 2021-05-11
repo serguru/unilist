@@ -1,0 +1,40 @@
+.selected {
+    border-style: solid;
+    border-width: 2px;
+    border-color: grey;
+    border-radius: 2px;
+}
+
+.member {
+    background-color: lightgrey;
+    width: 350px;
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    text-align: center;
+}
+
+.add {
+    width: 200px;
+}
+
+input[type=text] {
+    box-sizing: border-box;
+    padding: 5px;
+  } 
+
+button {
+    margin-left: 1em;
+    padding: 5px;
+}
+
+.error {
+    color: red;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    cursor: pointer;
+}
+
+.list-wrapper {
+    height: 800px;
+    overflow: auto;
+}

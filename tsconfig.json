@@ -17,14 +17,6 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "prp-library": [
-        "dist/prp-library"
-      ],
-      "prp-library/*": [
-        "dist/prp-library/*"
-      ]
-    }
+    ]
   }
 }
