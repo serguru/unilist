@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "review": {
+    "unilist": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -31,25 +31,25 @@
           "skipTests": true
         }
       },
-      "root": "projects/review",
-      "sourceRoot": "projects/review/src",
+      "root": "projects/unilist",
+      "sourceRoot": "projects/unilist/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/review",
-            "index": "projects/review/src/index.html",
-            "main": "projects/review/src/main.ts",
-            "polyfills": "projects/review/src/polyfills.ts",
-            "tsConfig": "projects/review/tsconfig.app.json",
+            "outputPath": "dist/unilist",
+            "index": "projects/unilist/src/index.html",
+            "main": "projects/unilist/src/main.ts",
+            "polyfills": "projects/unilist/src/polyfills.ts",
+            "tsConfig": "projects/unilist/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/review/src/favicon.ico",
-              "projects/review/src/assets"
+              "projects/unilist/src/favicon.ico",
+              "projects/unilist/src/assets"
             ],
             "styles": [
-              "projects/review/src/styles.css"
+              "projects/unilist/src/styles.css"
             ],
             "scripts": [],
             "customWebpackConfig": {
@@ -69,8 +69,8 @@
               "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "projects/review/src/environments/environment.ts",
-                  "with": "projects/review/src/environments/environment.dev.ts"
+                  "replace": "projects/unilist/src/environments/environment.ts",
+                  "with": "projects/unilist/src/environments/environment.dev.ts"
                 }
               ]
             },
@@ -86,8 +86,8 @@
               "buildOptimizer": false,
               "fileReplacements": [
                 {
-                  "replace": "projects/review/src/environments/environment.ts",
-                  "with": "projects/review/src/environments/environment.web.ts"
+                  "replace": "projects/unilist/src/environments/environment.ts",
+                  "with": "projects/unilist/src/environments/environment.web.ts"
                 }
               ]
             },
@@ -102,8 +102,8 @@
               "buildOptimizer": true,
               "fileReplacements": [
                 {
-                  "replace": "projects/review/src/environments/environment.ts",
-                  "with": "projects/review/src/environments/environment.prod.ts"
+                  "replace": "projects/unilist/src/environments/environment.ts",
+                  "with": "projects/unilist/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -112,24 +112,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "review:build"
+            "browserTarget": "unilist:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "review:build:dev"
+              "browserTarget": "unilist:build:dev"
             },
             "web": {
-              "browserTarget": "review:build:web"
+              "browserTarget": "unilist:build:web"
             },
             "production": {
-              "browserTarget": "review:build:production"
+              "browserTarget": "unilist:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "review:build"
+            "browserTarget": "unilist:build"
           }
         }
       }

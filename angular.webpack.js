@@ -8,7 +8,7 @@ module.exports = (config, options) => {
         config.target = options.customWebpackConfig.target;
     } else if (options.fileReplacements) {
         for(let fileReplacement of options.fileReplacements) {
-            if (fileReplacement.replace !== 'projects/review/src/environments/environment.ts') {
+            if (fileReplacement.replace !== 'projects/unilist/src/environments/environment.ts') {
                 continue;
             }
 

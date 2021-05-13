@@ -1,7 +1,28 @@
 import { app, BrowserWindow, screen, Menu, globalShortcut } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-import { exists } from 'fs';
+
+// const InputMenu = Menu.buildFromTemplate([{
+//         label: 'Undo',
+//         role: 'undo',
+//     }, {
+//         label: 'Redo',
+//         role: 'redo',
+//     }, {
+//         type: 'separator',
+//     }, {
+//         label: 'Cut',
+//         role: 'cut',
+//     }, {
+//         label: 'Copy',
+//         role: 'copy',
+//     }, {
+//         label: 'Paste',
+//         role: 'paste',
+//     }, {
+//         type: 'separator',
+//     },
+// ]);
 
 let win: BrowserWindow = null;
 
@@ -21,7 +42,7 @@ const createWindow = (): BrowserWindow => {
     y: 0,
     width: size.width,
     height: size.height,
-    title: "PRP Review",
+    title: "Unilist",
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
@@ -43,7 +64,7 @@ const createWindow = (): BrowserWindow => {
 
   } else {
 
-    let p = path.join(__dirname, 'dist/review/index.html');
+    let p = path.join(__dirname, 'dist/unilist/index.html');
     win.loadURL(url.format({
       pathname: p,
       protocol: 'file:',
@@ -69,6 +90,53 @@ const createWindow = (): BrowserWindow => {
     // when you should delete the corresponding element.
     win = null;
   });
+
+
+
+
+
+  win.webContents.on('context-menu', (e, props) => {
+    const InputMenu = Menu.buildFromTemplate([{
+        label: 'Undo',
+        role: 'undo',
+    }, {
+        label: 'Redo',
+        role: 'redo',
+    }, {
+        type: 'separator',
+    }, {
+        label: 'Cut',
+        role: 'cut',
+    }, {
+        label: 'Copy',
+        role: 'copy',
+    }, {
+        label: 'Paste',
+        role: 'paste',
+    },
+    ]);
+    const { inputFieldType } = props;
+    if (inputFieldType === 'plainText') {
+      InputMenu.popup();
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return win;
 }

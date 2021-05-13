@@ -1,10 +1,10 @@
 {
-  "productName": "review",
+  "productName": "unilist",
   "directories": {
-    "output": "review-release"
+    "output": "unilist-release"
   },
   "files": [
-    "dist/review/**/*",
+    "dist/unilist/**/*",
     "main.js",
     "!**/*.ts",
     "!*.code-workspace",
@@ -21,19 +21,19 @@
     "!tslint.json"
   ],
   "win": {
-    "icon": "dist/review/assets/icons",
+    "icon": "dist/unilist/assets/icons",
     "target": [
       "portable"
     ]
   },
   "mac": {
-    "icon": "dist/review/assets/icons",
+    "icon": "dist/unilist/assets/icons",
     "target": [
       "dmg"
     ]
   },
   "linux": {
-    "icon": "dist/review/assets/icons",
+    "icon": "dist/unilist/assets/icons",
     "target": [
       "AppImage"
     ]
