@@ -66,10 +66,10 @@ input[type=text] {
 }
 
 button {
-    margin-left: 1em;
+    margin-right: 1em;
     padding: 5px;
     cursor: pointer;
-    width: 90px;
+    min-width: 90px;
 }
 
 .error {
@@ -81,4 +81,11 @@ button {
 
 .new-company {
     background-color: rgb(228, 245, 228);
+}
+
+.buttons {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-items: center;
 }

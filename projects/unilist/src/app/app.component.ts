@@ -15,7 +15,16 @@ export class AppComponent implements OnInit {
   companies: string[] = [];
   newCompanies: string[] = [];
   path: string = 'companies.json';
-  selected: string;
+
+  selectedIndex: number = -1;
+
+  get selected(): string {
+    if (!this.companies || this.companies.length == 0 || this.selectedIndex < 0 || this.selectedIndex >= this.companies.length) {
+      return undefined;
+    }
+    return this.companies[this.selectedIndex];
+  }
+
   _newCompany: string;
   similarityLimit: number = 0.6;
   errorMessage: string;
@@ -42,13 +51,13 @@ export class AppComponent implements OnInit {
     return this.newCompanies.length;
   }
 
-  isNew(company: string): boolean {
-    return this.newCompanies.includes(company);
+  isNew(index: number): boolean {
+    return index >= 0 && index < this.newCompanies.length;
   }
 
   read() {
     this.newCompanies = [];
-    this.selected = undefined;
+    this.selectedIndex = -1;
 
     const raw: string[] = fs.readJSONSync(this.path);
     if (!raw || raw.length == 0) {
@@ -73,7 +82,7 @@ export class AppComponent implements OnInit {
       const y = b ? b.toLowerCase() : '';
       return x > y ? 1 : -1;
     });
-    this.selected = this.companies.length > 0 ? this.companies[0] : undefined;
+    this.selectedIndex = this.companies.length > 0 ? 0 : -1;
   }
 
   companyExists(): string {
@@ -92,7 +101,31 @@ export class AppComponent implements OnInit {
     return undefined;
   }
 
-  add() {
+  add(value?: string): void {
+    if (!value) {
+      value = this.newCompany || "";
+    }
+
+    if (value) {
+      value = value.trim();
+    }
+
+    if (!value || value.length == 0) {
+      this.errorMessage = "No add for empty value";
+
+      setTimeout(() => {
+        this.errorMessage = undefined;
+      }, 10000);
+
+      return;
+    }
+    this.companies.unshift(value);
+    this.newCompanies.unshift(value);
+    this.selectedIndex = 0;
+    this.save();
+  }
+
+  checkAdd() {
     if (!this.newCompany) {
       return;
     }
@@ -101,7 +134,6 @@ export class AppComponent implements OnInit {
 
     const s: string = this.companyExists();
     let nc = this.newCompany || '';
-    this.newCompany = undefined;
 
     nc = nc.trim();
     if (nc.length == 0) {
@@ -109,30 +141,40 @@ export class AppComponent implements OnInit {
     }
 
     if (!s) {
-      this.companies.unshift(nc);
-      this.newCompanies.unshift(nc);
-      this.selected = nc;
-      this.save();
+      this.add(nc);
+      this.newCompany = undefined;
       return;
     }
 
-    this.errorMessage = nc == s ? `A company ${nc} is already exist`: `Company ${nc} is similar to the existing ${s}`;
+    this.errorMessage = nc == s ? `The company ${nc} already exists` : `The company ${nc} is similar to ${s}`;
 
     setTimeout(() => {
       this.errorMessage = undefined;
     }, 10000)
   }
 
+  remove(index?: number) {
+    
+    if (index == undefined) {
+      index = this.selectedIndex;
+    }
 
-  remove(company?: string) {
-    let index: number = this.companies.indexOf(company ?? this.selected);
+    index = index >= 0 && index < this.companies.length ? index : -1;
+
+    if (index == -1) {
+      return;
+    }
+
+    let company: string = this.companies[index];
+
     this.companies.splice(index, 1);
 
-    index = this.newCompanies.indexOf(company ?? this.selected);
+    index = this.newCompanies.indexOf(company);
     this.newCompanies.splice(index, 1);
 
+    this.selectedIndex = this.companies.length > 0 ? 0 : -1;
+
     this.save();
-    this.selected = this.companies.length > 0 ? this.companies[0] : undefined;
   }
 
   save() {
@@ -140,18 +182,18 @@ export class AppComponent implements OnInit {
     fs.writeFileSync(this.path, s);
   }
 
-  select(company: string) {
-    this.selected = company;
+  select(index: number) {
+    this.selectedIndex = index >=0 && index < this.companies.length ? index : -1;
   }
 
   hideError() {
     this.errorMessage = undefined;
   }
 
-  getClass(company: string) {
+  getClass(index: number) {
     return {
-      'selected': this.selected == company,
-      'new-company': this.isNew(company)
+      'selected': this.selectedIndex == index,
+      'new-company': this.isNew(index)
     }
   }
 
@@ -168,10 +210,8 @@ export class AppComponent implements OnInit {
     if (!value) {
       return;
     }
-
     this.newCompany = value;
-
-    this.add();
+    this.checkAdd();
   }
 
 }

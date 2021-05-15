@@ -3,12 +3,15 @@
     <div class="header">
         <h3>{{count}} companies, {{newCount}} new </h3>
         <input type="text" [(ngModel)]="newCompany" class="add" #ctrl="ngModel" (keyup.enter)="add()" (drop)="drop($event)">
-        <button (click)="add()">Add</button>
-        <button (click)="remove()" [disabled]="!selected">Remove</button>
-        <div class="error" (click)="hideError()">{{errorMessage}}</div>
+        <div class="buttons">
+            <button (click)="checkAdd()">Check & Add</button>
+            <button (click)="add()">Add</button>
+            <button (click)="remove()" [disabled]="!selected">Remove</button>
+            <div class="error" (click)="hideError()">{{errorMessage}}</div>
+        </div>
     </div>
     <div class="content">
-        <div *ngFor='let company of companies' (click)="select(company)" class="member" [ngClass]="getClass(company)">
+        <div *ngFor='let company of companies; index as i' (click)="select(i)" class="member" [ngClass]="getClass(i)">
             {{company}}</div>
 
     </div>
