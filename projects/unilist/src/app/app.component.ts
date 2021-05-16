@@ -89,6 +89,15 @@ export class AppComponent implements OnInit {
       return undefined;
     }
 
+    const v: string = this.newCompany.toLowerCase();
+
+    for (let i: number = 0; i < this.companies.length; i++) {
+      const s: string = this.companies[i].toLowerCase();
+      if (s == v) {
+        return this.companies[i];
+      }
+    }
+
     for (let i: number = 0; i < this.companies.length; i++) {
       const s: string = this.companies[i];
       const similarity: number = ss.compareTwoStrings(this.newCompany, s);
