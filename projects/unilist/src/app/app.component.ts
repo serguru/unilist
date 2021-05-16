@@ -4,8 +4,7 @@ import * as ss from 'string-similarity';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -119,6 +118,7 @@ export class AppComponent implements OnInit {
 
       return;
     }
+    this.errorMessage = undefined;
     this.companies.unshift(value);
     this.newCompanies.unshift(value);
     this.selectedIndex = 0;
@@ -134,6 +134,7 @@ export class AppComponent implements OnInit {
 
     const s: string = this.companyExists();
     let nc = this.newCompany || '';
+    this.newCompany = undefined;
 
     nc = nc.trim();
     if (nc.length == 0) {
@@ -142,7 +143,6 @@ export class AppComponent implements OnInit {
 
     if (!s) {
       this.add(nc);
-      this.newCompany = undefined;
       return;
     }
 
