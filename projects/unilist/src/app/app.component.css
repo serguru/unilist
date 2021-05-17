@@ -1,0 +1,68 @@
+.buttons * {
+    padding-top: 0.5em;
+    margin-right: 0.5em;
+    min-width: 90px;
+    cursor: pointer;
+    font-size: large;
+}
+
+.container {
+    height: 100%;
+    padding: 1em 1em 1em 1em;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: min-content auto;
+}
+
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+    align-items: center;
+}
+
+.input-stuff {
+    margin-right: 1em;
+    width: 350px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: auto;
+}
+
+.member {
+    background-color: rgb(243, 241, 241);
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    text-align: center;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(235, 235, 235);
+    border-radius: 0.5em;
+}
+
+.selected {
+    border-color: grey;
+}
+
+.error {
+    color: red;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    cursor: pointer;
+}
+
+.new-company {
+    background-color: rgb(228, 245, 228);
+}
+
+.caption {
+    color: grey;
+    font-size: large;
+    padding-bottom: 0.5em;
+}

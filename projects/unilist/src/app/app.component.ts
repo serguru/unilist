@@ -4,6 +4,7 @@ import * as ss from 'string-similarity';
 
 @Component({
   selector: 'app-root',
+  styleUrls: ['app.component.css'],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
@@ -159,7 +160,7 @@ export class AppComponent implements OnInit {
 
     setTimeout(() => {
       this.errorMessage = undefined;
-    }, 10000)
+    }, 10000);
   }
 
   remove(index?: number) {
@@ -223,4 +224,7 @@ export class AppComponent implements OnInit {
     this.checkAdd();
   }
 
+  allowDrop(e) {
+    e.preventDefault();
+  }
 }
