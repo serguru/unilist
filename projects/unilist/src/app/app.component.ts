@@ -174,9 +174,9 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.errorMessage = `The company ${nc} is similar to ${s}`;
+    this.hideError();
 
-    this.openDialog(nc);
+    this.openDialog(nc, `Company "${nc}" is similar to "${s}". Add it anyway?`);
   }
 
   remove(index?: number) {
@@ -248,13 +248,12 @@ export class AppComponent implements OnInit {
     e.preventDefault();
   }
 
-  openDialog(company: string) {
+  openDialog(company: string, message: string) {
     const dialogRef = this.dialog.open(DialogComponent, {
-      data: company
+      data: message
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
       if (!result) {
         return;
       }
