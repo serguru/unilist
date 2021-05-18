@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 // import {A11yModule} from '@angular/cdk/a11y';
 // import {ClipboardModule} from '@angular/cdk/clipboard';
 // import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -19,7 +20,6 @@ import {MatButtonModule} from '@angular/material/button';
 // import {MatChipsModule} from '@angular/material/chips';
 // import {MatStepperModule} from '@angular/material/stepper';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
-// import {MatDialogModule} from '@angular/material/dialog';
 // import {MatDividerModule} from '@angular/material/divider';
 // import {MatExpansionModule} from '@angular/material/expansion';
 // import {MatGridListModule} from '@angular/material/grid-list';
@@ -48,6 +48,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
+    MatDialogModule,
 
     // A11yModule,
     // ClipboardModule,
@@ -64,7 +65,6 @@ import {MatButtonModule} from '@angular/material/button';
     // MatChipsModule,
     // MatStepperModule,
     // MatDatepickerModule,
-    // MatDialogModule,
     // MatDividerModule,
     // MatExpansionModule,
     // MatGridListModule,

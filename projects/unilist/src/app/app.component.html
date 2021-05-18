@@ -16,7 +16,7 @@
         <div class="error" (click)="hideError()">{{errorMessage}}</div>
     </div>
     <div class="content">
-        <div *ngFor='let company of companies; index as i' (click)="select(i)" class="member" [ngClass]="getClass(i)">
+        <div *ngFor='let company of companies; index as i' (click)="onMemberClick(i)" class="member" [ngClass]="getClass(i)">
             {{company}}
         </div>
     </div>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as fs from 'fs-extra';
 import * as ss from 'string-similarity';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +11,17 @@ import * as ss from 'string-similarity';
 })
 export class AppComponent implements OnInit {
   constructor(
+    public dialog: MatDialog
   ) {
   }
 
   companies: string[] = [];
   newCompanies: string[] = [];
   path: string = 'companies.json';
-
+  to: NodeJS.Timeout;
+  _newCompany: string;
+  similarityLimit: number = 0.6;
+  _errorMessage: string;
   selectedIndex: number = -1;
 
   get selected(): string {
@@ -25,9 +31,20 @@ export class AppComponent implements OnInit {
     return this.companies[this.selectedIndex];
   }
 
-  _newCompany: string;
-  similarityLimit: number = 0.6;
-  errorMessage: string;
+  get errorMessage(): string {
+    return this._errorMessage;
+  }
+
+  set errorMessage(value: string) {
+    this._errorMessage = value;
+    clearTimeout(this.to);
+    if (!this._errorMessage || this._errorMessage.length == 0) {
+      return;
+    }
+    this.to = setTimeout(() => {
+      this.hideError();
+    }, 10000);
+  }
 
   ngOnInit(): void {
     this.read();
@@ -121,14 +138,10 @@ export class AppComponent implements OnInit {
 
     if (!value || value.length == 0) {
       this.errorMessage = "No add for empty value";
-
-      setTimeout(() => {
-        this.errorMessage = undefined;
-      }, 10000);
-
       return;
     }
-    this.errorMessage = undefined;
+
+    this.hideError();
     this.companies.unshift(value);
     this.newCompanies.unshift(value);
     this.selectedIndex = 0;
@@ -140,7 +153,7 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.errorMessage = undefined;
+    this.hideError();
 
     const s: string = this.companyExists();
     let nc = this.newCompany || '';
@@ -156,11 +169,14 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.errorMessage = nc == s ? `The company ${nc} already exists` : `The company ${nc} is similar to ${s}`;
+    if (nc == s) {
+      this.errorMessage = `The company ${nc} already exists`;
+      return;
+    }
 
-    setTimeout(() => {
-      this.errorMessage = undefined;
-    }, 10000);
+    this.errorMessage = `The company ${nc} is similar to ${s}`;
+
+    this.openDialog(nc);
   }
 
   remove(index?: number) {
@@ -176,14 +192,10 @@ export class AppComponent implements OnInit {
     }
 
     let company: string = this.companies[index];
-
     this.companies.splice(index, 1);
-
     index = this.newCompanies.indexOf(company);
     this.newCompanies.splice(index, 1);
-
-    this.selectedIndex = this.companies.length > 0 ? 0 : -1;
-
+    this.selectedIndex = -1;
     this.save();
   }
 
@@ -194,6 +206,14 @@ export class AppComponent implements OnInit {
 
   select(index: number) {
     this.selectedIndex = index >=0 && index < this.companies.length ? index : -1;
+  }
+
+  onMemberClick(index: number) {
+    if (this.selectedIndex == index) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.select(index);
   }
 
   hideError() {
@@ -227,4 +247,20 @@ export class AppComponent implements OnInit {
   allowDrop(e) {
     e.preventDefault();
   }
+
+  openDialog(company: string) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: company
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      if (!result) {
+        return;
+      }
+      this.add(company);
+    });
+  }
 }
+
+
