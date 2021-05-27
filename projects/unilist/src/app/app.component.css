@@ -1,6 +1,11 @@
-.buttons * {
+.text-button {
     margin-right: 0.5em;
     min-width: 90px;
+    cursor: pointer;
+    font-size: large;
+}
+
+.icon-button {
     cursor: pointer;
     font-size: large;
 }

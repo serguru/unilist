@@ -9,9 +9,10 @@
             </button>
         </mat-form-field>
         <div class="buttons">
-            <button mat-stroked-button (click)="checkAdd()" [disabled]="!newCompany">Check & Add</button>
-            <button mat-stroked-button (click)="add()" [disabled]="!newCompany">Add</button>
-            <button mat-stroked-button (click)="remove()" [disabled]="!selected">Remove</button>
+            <button class="text-button" mat-stroked-button (click)="checkAdd()" [disabled]="!newCompany">Check & Add</button>
+            <button class="text-button" mat-stroked-button (click)="add()" [disabled]="!newCompany">Add</button>
+            <button class="text-button" mat-stroked-button (click)="remove()" [disabled]="!selected">Remove</button>
+            <button class="icon-button" mat-stroked-button (click)="updateClipboard()" [title]="searchString"><mat-icon>subject</mat-icon></button>
         </div>
         <div class="error" (click)="hideError()">{{errorMessage}}</div>
     </div>
@@ -21,3 +22,4 @@
         </div>
     </div>
 </div>
+

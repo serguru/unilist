@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   similarityLimit: number = 0.6;
   _errorMessage: string;
   selectedIndex: number = -1;
+  searchString: string; 
 
   get selected(): string {
     if (!this.companies || this.companies.length == 0 || this.selectedIndex < 0 || this.selectedIndex >= this.companies.length) {
@@ -260,6 +261,52 @@ export class AppComponent implements OnInit {
       this.add(company);
     });
   }
+
+  // toggleCommaSeparated(): void {
+  //   this.commaSeparated = this.commaSeparated ? undefined : this.companies
+  //   .map(x => `-"${x}"`)
+  //   .join(' ');
+
+  // }
+
+
+  
+
+  generateSearchString(): string {
+
+    let result: string = '';
+
+    if (!this.companies || this.companies.length == 0) {
+      return result;
+    }
+
+    const limit: number = 514;
+
+    let index: number = Math.floor(Math.random() * this.companies.length);
+
+    for (let i: number = index; i < this.companies.length; i++) {
+      const s: string = `"${this.companies[i]}" `;
+
+      if ((result + s).length > limit) {
+        return result;
+      }
+      result += s;
+    }
+
+    for (let i: number = 0; i < index; i++) {
+      const s: string = `"${this.companies[i]}" `;
+
+      if ((result + s).length > limit) {
+        return result;
+      }
+      result += s;
+    }
+
+    return result.trim();
+  }
+
+  updateClipboard() {
+    this.searchString = this.generateSearchString();
+    navigator.clipboard.writeText(this.searchString);
+  }
 }
-
-
